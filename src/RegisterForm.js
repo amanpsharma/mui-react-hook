@@ -24,7 +24,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,InputAdornment,CssBaseline
+  DialogActions,InputAdornment,CssBaseline,Chip
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     marginRight: 1,
   },
+  imageProfile:{
+    width:100,
+    height: 100,
+    borderRadius:50
+  }
 }));
 
 const RegisterForm = () => {
@@ -137,6 +142,7 @@ const RegisterForm = () => {
     setEditIndex(index);
     // Set form field values for editing
     const dataToEdit = formData[index];
+    console.log(dataToEdit)
     Object.keys(dataToEdit).forEach((fieldName) => {
       setValue(fieldName, dataToEdit[fieldName]);
     });
@@ -308,7 +314,10 @@ const RegisterForm = () => {
               }}
               render={({ field }) => (
                 <FormControlLabel
-                  control={<Checkbox {...field} color="primary" />}
+                  control={<Checkbox {...field} color="primary" 
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                  />}
                   label="I agree to the terms and conditions"
                 />
               )}
@@ -422,7 +431,8 @@ const RegisterForm = () => {
                 <TableCell>Passwod</TableCell>
                 <TableCell>Option</TableCell>
                 <TableCell>Gender</TableCell>
-                <TableCell>Actions</TableCell>
+                <TableCell>Term Conditions</TableCell>
+                <TableCell></TableCell>
                 {/* ... Other table headers ... */}
               </TableRow>
             </TableHead>
@@ -436,17 +446,26 @@ const RegisterForm = () => {
               ) :(
               filteredData.map((data, index) => (
                 <TableRow key={index}>
+                  <TableCell>
                   <img
                       src={data.imageUrl}
                       alt={`Image of ${data.firstName}`}
-                      style={{ width: '100px', height: 'auto' }}
+                      className={classes.imageProfile}
                     />
+                    </TableCell>
                   <TableCell>{data.firstName}</TableCell>
                   <TableCell>{data.lastName}</TableCell>{' '}
                   <TableCell>{data.email}</TableCell>{' '}
                   <TableCell>{data.password}</TableCell>{' '}
                   <TableCell>{data.selectField}</TableCell>
                   <TableCell>{data.radioGroup}</TableCell>
+                  <TableCell>
+                  {data.termsAgreed ? (
+                    <Chip label="Active" color="primary" />
+                  ) : (
+                    <Chip label="Inactive" color="secondary" />
+                  )}
+                </TableCell>
                   <TableCell>
                     <IconButton
                       className={classes.iconButton}
