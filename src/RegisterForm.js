@@ -142,7 +142,6 @@ const RegisterForm = () => {
     setEditIndex(index);
     // Set form field values for editing
     const dataToEdit = formData[index];
-    console.log(dataToEdit)
     Object.keys(dataToEdit).forEach((fieldName) => {
       setValue(fieldName, dataToEdit[fieldName]);
     });
@@ -168,7 +167,6 @@ const RegisterForm = () => {
       <CssBaseline />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
-          
           <Grid item xs={12} sm={6}>
             <Controller
               name="firstName"
@@ -323,7 +321,7 @@ const RegisterForm = () => {
               )}
             />
             {errors.termsAgreed && (
-              <p style={{ color: 'red', margin: '0' }}>
+              <p className="error-message">
                 {errors.termsAgreed.message}
               </p>
             )}
@@ -350,7 +348,7 @@ const RegisterForm = () => {
               )}
             />
             {errors.selectField && (
-              <p style={{ color: 'red', margin: '10px 0' }}>
+              <p className="error-message">
                 {errors.selectField.message}
               </p>
             )}
@@ -391,7 +389,7 @@ const RegisterForm = () => {
               )}
             />
             {errors.radioGroup && (
-              <p style={{ color: 'red', margin: '10px 0' }}>
+              <p className="error-message">
                 {errors.radioGroup.message}
               </p>
             )}
